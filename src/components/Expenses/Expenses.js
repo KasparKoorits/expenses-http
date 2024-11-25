@@ -1,6 +1,7 @@
 import "./Expenses.css";
 import ExpenseItem from "./ExpenseItem.js";
 import Card from "./Card.js";
+import ExpensesFilter from "./Expenses/ExpensesFilter.js";
 
 const Expenses = (props) => {
   return (
