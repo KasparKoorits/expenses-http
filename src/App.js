@@ -1,23 +1,19 @@
 import "./App.css";
 import Expenses from "./components/Expenses/Expenses.js";
 import NewExpense from "./components/NewExpense/NewExpense.js";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
+const DYMMY_EXPENSES = [];
 
 const App = () => {
-  const [expenses, setExpenses] = useState([
-    {
-      id: "id1",
-      date: new Date(2023, 10, 12),
-      title: "New book",
-      amount: 30.99,
-    },
-    {
-      id: "id2",
-      date: new Date(2024, 10, 12),
-      title: "New jeans",
-      amount: 99.99,
-    },
-  ]);
+  const [expenses, setExpenses] = useState(() => {
+    const expensesFromLS = JSON.parse(localStorage.getItem("expenses"));
+    return expensesFromLS || DYMMY_EXPENSES;
+  });
+
+  useEffect(() => {
+    localStorage.setItem("expenses", JSON.stringify(expenses));
+  }, [expenses]);
 
   const addExpenseHandler = (expense) => {
     setExpenses((prevExpenses) => {
