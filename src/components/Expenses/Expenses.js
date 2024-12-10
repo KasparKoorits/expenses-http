@@ -5,7 +5,7 @@ import ExpensesFilter from "./ExpensesFilter.js";
 import { useState } from "react";
 
 const Expenses = (props) => {
-  const [filteredYear, setFilteredYear] = useState("2023");
+  const [filteredYear, setFilteredYear] = useState("2024");
 
   const filterChangeHandler = (selectedYear) => {
     console.log("Filtering by year:", selectedYear);
@@ -17,17 +17,19 @@ const Expenses = (props) => {
   });
 
   return (
-    <div>
-      <Card className="expenses">
-        <ExpensesFilter
-          selected={filteredYear}
-          onChangeFilter={filterChangeHandler}
-        />
-        {filteredExpenses.map((expense) => (
-          <ExpenseItem key={expense.id} expenseData={expense} />
-        ))}
-      </Card>
-    </div>
+    <Card className="expenses">
+      <ExpensesFilter
+        selected={filteredYear}
+        onChangeFilter={filterChangeHandler}
+      />
+      {filteredExpenses.length === 0 ? (
+        <p>No expenses found.</p>
+      ) : (
+        filteredExpenses.map((expense) => (
+          <ExpenseItem expenseData={expense} key={expense.id} />
+        ))
+      )}
+    </Card>
   );
 };
 
